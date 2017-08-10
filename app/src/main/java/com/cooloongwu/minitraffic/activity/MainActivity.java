@@ -22,6 +22,7 @@ import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkRouteResult;
 import com.cooloongwu.minitraffic.R;
 import com.cooloongwu.minitraffic.adapter.MyInfoWindowAdapter;
+import com.cooloongwu.minitraffic.utils.CarUtil;
 import com.cooloongwu.minitraffic.utils.PolylineUtil;
 import com.cooloongwu.minitraffic.utils.ToastUtil;
 
@@ -32,7 +33,6 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity implements RouteSearch.OnRouteSearchListener {
 
     private MapView mapView = null;
-    private Button btn_plan, btn_start, plan_from, plan_to;
     private boolean isClickFrom = false;
     private AMap aMap = null;
 
@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity implements RouteSearch.OnRou
 
         //获取地图控件引用
         mapView = (MapView) findViewById(R.id.map);
-        btn_plan = (Button) findViewById(R.id.btn_plan);
-        btn_start = (Button) findViewById(R.id.btn_start);
-        plan_from = (Button) findViewById(R.id.plan_from);
-        plan_to = (Button) findViewById(R.id.plan_to);
+        Button btn_plan = (Button) findViewById(R.id.btn_plan);
+        Button btn_start = (Button) findViewById(R.id.btn_start);
+        Button plan_from = (Button) findViewById(R.id.plan_from);
+        Button plan_to = (Button) findViewById(R.id.plan_to);
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
         mapView.onCreate(savedInstanceState);
 
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements RouteSearch.OnRou
         }
 
         aMap.showIndoorMap(false);  //不显示室内地图
-        aMap.setMaxZoomLevel(14);
+        aMap.setMaxZoomLevel(15);
         aMap.setMinZoomLevel(12);
         UiSettings uiSettings = aMap.getUiSettings();
         //缩放控件
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements RouteSearch.OnRou
             // 实例 SmoothMoveMarker 对象
             SmoothMoveMarker smoothMarker = new SmoothMoveMarker(aMap);
             // 设置 平滑移动的 图标
-            smoothMarker.setDescriptor(BitmapDescriptorFactory.fromResource(R.drawable.icon_traffic_car));
+            smoothMarker.setDescriptor(BitmapDescriptorFactory.fromResource(CarUtil.getRandomCar()));
 
             // 设置轨迹点
             smoothMarker.setPoints(points);

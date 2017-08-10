@@ -1,6 +1,5 @@
 package com.cooloongwu.minitraffic.utils;
 
-import android.graphics.Color;
 import android.util.ArrayMap;
 
 import com.amap.api.maps.AMap;
@@ -26,9 +25,9 @@ public class PolylineUtil {
         Polyline polyline = aMap.addPolyline(
                 new PolylineOptions()
                         .addAll(points)
-                        .useGradient(true)
+                        //.useGradient(true) // 速度变化
                         .width(8)
-                        .color(Color.argb(100, 255, 20, 147)));
+                        .color(ColorUtil.getRandomColor()));
 
         polylines.put(polylines.size(), polyline);
         polylinePoints.put(polylines.size(), points);

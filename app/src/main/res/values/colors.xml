@@ -5,4 +5,13 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="test">#CDFCBB</color>
+
+
+    <color name="line_blue">#0088CC</color>
+    <color name="line_red">#DA4F49</color>
+    <color name="line_yellow">#FAA732</color>
+    <color name="line_green">#5BB75B</color>
+    <color name="line_gray">#363636</color>
+
+
 </resources>
