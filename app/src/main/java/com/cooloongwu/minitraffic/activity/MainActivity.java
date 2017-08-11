@@ -11,6 +11,7 @@ import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.utils.overlay.SmoothMoveMarker;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.route.BusRouteResult;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements RouteSearch.OnRouteSearchListener {
+public class MainActivity extends AppCompatActivity implements RouteSearch.OnRouteSearchListener, AMap.OnMapClickListener, AMap.OnMarkerClickListener {
 
     private MapView mapView = null;
     private boolean isClickFrom = false;
@@ -71,17 +72,8 @@ public class MainActivity extends AppCompatActivity implements RouteSearch.OnRou
         uiSettings.setScrollGesturesEnabled(true);//滑动手势
 
 
-        aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                Log.e("地图点击", latLng.toString());
-                if (isClickFrom) {
-                    latLngFrom = latLng;
-                } else {
-                    latLngTo = latLng;
-                }
-            }
-        });
+        aMap.setOnMapClickListener(this);
+        aMap.setOnMarkerClickListener(this);
 
 
         btn_plan.setOnClickListener(new View.OnClickListener() {
@@ -177,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements RouteSearch.OnRou
             // 设置轨迹点
             smoothMarker.setPoints(points);
             // 设置平滑移动的总时间  单位  秒
-            smoothMarker.setTotalDuration(100);
+            smoothMarker.setTotalDuration(160);
 
             // 设置  自定义的InfoWindow 适配器
             final MyInfoWindowAdapter infoWindowAdapter = new MyInfoWindowAdapter(this);
@@ -224,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements RouteSearch.OnRou
 
     @Override
     public void onDriveRouteSearched(DriveRouteResult result, int errorCode) {
-        Log.e("驾车路线", "" + result.getPaths().size());
+        Log.e("驾车路线", "" + result.getPaths().size() + "距离：" + result.getPaths().get(0).getDistance());
         List<LatLng> points = new ArrayList<>();
         DrivePath drivePath = result.getPaths().get(0);
         List<DriveStep> driveSteps = drivePath.getSteps();
@@ -246,6 +238,25 @@ public class MainActivity extends AppCompatActivity implements RouteSearch.OnRou
     @Override
     public void onRideRouteSearched(RideRouteResult rideRouteResult, int i) {
         Log.e("骑车路线", "" + rideRouteResult.toString());
+    }
+
+    //点击地图
+    @Override
+    public void onMapClick(LatLng latLng) {
+        Log.e("onMapClick", latLng.toString());
+        if (isClickFrom) {
+            latLngFrom = latLng;
+        } else {
+            latLngTo = latLng;
+        }
+    }
+
+    //点击了小汽车等标记物
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        Log.e("onMarkerClick", marker.getTitle());
+        return true;
+        //返回false则默认执行marker.showInfoWindow()，true则不执行
     }
 }
 

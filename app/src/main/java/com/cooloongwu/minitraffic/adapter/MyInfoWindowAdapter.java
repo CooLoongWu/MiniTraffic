@@ -41,7 +41,7 @@ public class MyInfoWindowAdapter implements AMap.InfoWindowAdapter {
 
     @Override
     public View getInfoContents(Marker marker) {
-        return getInfoWindowView(marker);
+        return null;
     }
 
 

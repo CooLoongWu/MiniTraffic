@@ -1,6 +1,6 @@
 package com.cooloongwu.minitraffic.utils;
 
-import com.cooloongwu.minitraffic.R;
+import android.graphics.Color;
 
 import java.util.Random;
 
@@ -11,11 +11,10 @@ import java.util.Random;
 public class ColorUtil {
 
     private static int colors[] = {
-            R.color.line_blue,
-            R.color.line_gray,
-            R.color.line_green,
-            R.color.line_red,
-            R.color.line_yellow
+            Color.argb(255, 1, 161, 255),
+            Color.argb(255, 255, 171, 0),
+            Color.argb(255, 255, 227, 1),
+            Color.argb(255, 55, 233, 1),
     };
 
     public static int getRandomColor() {

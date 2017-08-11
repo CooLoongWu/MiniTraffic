@@ -25,7 +25,7 @@ public class PolylineUtil {
         Polyline polyline = aMap.addPolyline(
                 new PolylineOptions()
                         .addAll(points)
-                        //.useGradient(true) // 速度变化
+                        .useGradient(false) // 速度变化
                         .width(8)
                         .color(ColorUtil.getRandomColor()));
 
